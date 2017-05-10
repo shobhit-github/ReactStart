@@ -1,19 +1,34 @@
-
 'use strict';
 
 import React, {Component} from 'react';
 import {NavigationActions} from 'react-navigation';
-import {StyleSheet, View, Image, StatusBar, TextInput, TouchableHighlight, Text} from 'react-native';
+import {StyleSheet, View, Image, StatusBar, TextInput, TouchableHighlight, Text, ToastAndroid} from 'react-native';
 
 
 import {loginStyle} from './login.style';
+import Auth from './login.network';
 import {Config} from '../../Config';
 
 
 export default class Login extends Component {
 
 
-    appLogo = Config.IMG_DIR+'react-logo.png';
+    appLogo = Config.IMG_DIR + 'react-logo.png';
+    Auth = new Auth();
+
+
+    doLogin(data) {
+
+        this.Auth.doLogin(data, (res) => {
+
+            if (!res.success) {
+                return ToastAndroid.show("Invalid Credentials", ToastAndroid.SHORT);
+            }
+
+            this.props.navigation.dispatch(navigateAction);
+        })
+
+    }
 
 
     render() {
@@ -51,7 +66,7 @@ export default class Login extends Component {
                 />
                 <TouchableHighlight
                     style={styles.loginBtn}
-                    onPress={ () => this.props.navigation.dispatch(navigateAction) }
+                    onPress={ () => this.doLogin(frmObj) }
                 >
                     <Text style={styles.loginBtnTxt}>
                         Login
@@ -63,9 +78,11 @@ export default class Login extends Component {
 }
 
 
-const navigateAction = NavigationActions.navigate({
-    routeName: 'Dashboard',
-    action: NavigationActions.navigate({routeName: 'Dashboard'})
+const navigateAction = NavigationActions.reset({
+    index: 0,
+    actions: [
+        NavigationActions.navigate({ routeName: 'Dashboard'})
+    ]
 });
 
 

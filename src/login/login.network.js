@@ -1,19 +1,28 @@
-
 import Http from '../../Http';
+import {ToastAndroid, Alert} from 'react-native';
+
 
 export default class Auth {
 
-    http = Http;
+    http = new Http();
 
     constructor() {
 
     }
 
-    doLogin(data) {
+    toggleError(message) {
+
+        return ToastAndroid.show(message, ToastAndroid.SHORT);
+    }
+
+    doLogin(data, callback) {
 
         this.http.post(data)
-            .catch((err)=>{
-                console.error(err);
+            .catch((err) => {
+               this.toggleError("Something went Wrong");
+            })
+            .then((res) => {
+                callback(res);
             })
     }
 

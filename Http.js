@@ -1,4 +1,4 @@
-import Config from './Config';
+import {Config} from './Config';
 
 export default class Http {
 
@@ -22,14 +22,14 @@ export default class Http {
     post(data) {
 
         return fetch(
-            this.API_URL,
+            this.API_URL+'login',
             {
                 method: "POST",
                 body: JSON.stringify(data),
                 headers: this.headers
             }
         )
-            .then((rawData) => rawData.json());
+            .then( (rawData) => { return rawData.json() } )
     }
 
 

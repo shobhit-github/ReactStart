@@ -1,7 +1,7 @@
 
 import Http from '../../Http';
 
-export default class Dashboard {
+export class Dashboard {
 
     http = Http;
 
