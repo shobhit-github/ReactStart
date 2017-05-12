@@ -5,19 +5,22 @@ export const loginStyle = {
     container: {
         flex: 1,
         justifyContent: 'center',
+        width:'100%',
         alignItems: 'center',
-        backgroundColor: '#2C3E50',
+        backgroundColor: 'transparent',
     },
     field: {
         width: '80%',
         height: 40,
         fontFamily: "cursive",
         fontSize: 20,
-        backgroundColor: "#FFFFFF",
+        backgroundColor: "transparent",
+        borderColor:"#FFFFFF",
         borderRadius: 50,
-        borderWidth: 0,
+        borderWidth: 1,
         marginBottom: 10,
-        textAlign: 'center'
+        textAlign: 'center',
+        color:"#FFFFFF"
     },
     loginBtn: {
         width: '80%',

@@ -16,7 +16,8 @@ export default class Http {
                 method: "GET",
                 headers: this.headers
             }
-        );
+        )
+            .then( (rawData) => { return rawData.json() } )
     }
 
     post(data) {

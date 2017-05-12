@@ -39,7 +39,10 @@ export default class Login extends Component {
 
         return (
 
-            <View style={styles.container}>
+            <Image
+                source={require('../../public/img/bg-login.jpg')}
+                style={styles.container}
+            >
 
                 <Image
                     source={require('../../public/img/react-logo.png')}
@@ -54,7 +57,7 @@ export default class Login extends Component {
                     style={[styles.field, {marginTop: 30}]}
                     onChangeText={(user) => frmObj.username = user }
                     placeholder={"Username"}
-                    placeholderTextColor={"#999"}
+                    placeholderTextColor={"#FFF"}
                 />
                 <TextInput
                     secureTextEntry={true}
@@ -62,17 +65,17 @@ export default class Login extends Component {
                     style={[styles.field]}
                     onChangeText={(pass) => frmObj.password = pass }
                     placeholder={"Password"}
-                    placeholderTextColor={"#999"}
+                    placeholderTextColor={"#FFF"}
                 />
                 <TouchableHighlight
                     style={styles.loginBtn}
-                    onPress={ () => this.doLogin(frmObj) }
+                    onPress={ () => /*this.doLogin(frmObj)*/ this.props.navigation.dispatch(navigateAction) }
                 >
                     <Text style={styles.loginBtnTxt}>
                         Login
                     </Text>
                 </TouchableHighlight>
-            </View>
+            </Image>
         );
     }
 }
