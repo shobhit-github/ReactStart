@@ -1,5 +1,6 @@
 import Http from '../../Http';
 import {ToastAndroid, Alert} from 'react-native';
+import {Message} from '../../Message';
 
 
 export default class Auth {
@@ -10,20 +11,22 @@ export default class Auth {
 
     }
 
-    toggleError(message) {
 
-        return ToastAndroid.show(message, ToastAndroid.SHORT);
-    }
 
     doLogin(data, callback) {
 
-        this.http.post(data)
+        this.http.post('login', data)
             .catch((err) => {
-               this.toggleError("Something went Wrong");
+                ToastAndroid.show(Message.SOMETHING_WRONG, ToastAndroid.SHORT);
             })
             .then((res) => {
+
                 callback(res);
             })
     }
+
+
+
+
 
 }

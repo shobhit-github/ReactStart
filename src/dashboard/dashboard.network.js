@@ -1,20 +1,31 @@
-
 import Http from '../../Http';
+import {ToastAndroid, Alert} from 'react-native';
+import {Message} from '../../Message';
 
-export class Dashboard {
+export class Home {
 
-    http = Http;
+    http = new Http();
+
+
 
     constructor() {
 
     }
 
-    doLogin(data) {
+    checkAuth(callback) {
 
-        this.http.post(data)
-            .catch((err)=>{
-                console.error(err);
+        this.http.auth()
+            .catch((err) => {
+                ToastAndroid.show(Message.SOMETHING_WRONG, ToastAndroid.SHORT);
             })
+            .then((res) => {
+                callback(res);
+            })
+
     }
+
+
+
+
 
 }

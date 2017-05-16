@@ -1,34 +1,30 @@
 'use strict';
 
 import React, {Component} from 'react';
-import {NavigationActions} from 'react-navigation';
-import {
-    StyleSheet,
-    Image,
-    View,
-    ScrollView,
-    SectionList,
-    Text,
-    StatusBar,
-    DrawerLayoutAndroid,
-    ListView
-} from 'react-native';
+import {StyleSheet, Image, View, ScrollView, SectionList, Text, StatusBar, DrawerLayoutAndroid, ListView} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 
 import {dashboardStyle} from './dashboard.style';
+import {Home} from './dashboard.network';
 
 
 export default class Dashboard extends Component {
 
 
-    drawerVision = false;
+    user = new Object();
+    home = new Home();
 
-    toggleDrawer() {
-        if (!this.drawerVision) {
-            openDrawer();
-        }
+
+    constructor(props) {
+        super(props);
+
+        this.home.checkAuth((res)=>{
+
+            this.user = res;
+        })
     }
+
 
     render() {
 

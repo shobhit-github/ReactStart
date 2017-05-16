@@ -2,19 +2,18 @@
 
 import React, {Component} from 'react';
 import {NavigationActions} from 'react-navigation';
-import {StyleSheet, View, Image, StatusBar, TextInput, TouchableHighlight, Text, ToastAndroid} from 'react-native';
-
-
+import {StyleSheet, View, Image, StatusBar, TextInput, TouchableHighlight, Text, ToastAndroid, AsyncStorage} from 'react-native';
 import {loginStyle} from './login.style';
+
+
 import Auth from './login.network';
-import {Config} from '../../Config';
+import Token from '../../Token';
 
 
 export default class Login extends Component {
 
-
-    appLogo = Config.IMG_DIR + 'react-logo.png';
     Auth = new Auth();
+    Token= new Token();
 
 
     doLogin(data) {
@@ -22,9 +21,10 @@ export default class Login extends Component {
         this.Auth.doLogin(data, (res) => {
 
             if (!res.success) {
-                return ToastAndroid.show("Invalid Credentials", ToastAndroid.SHORT);
+                return ToastAndroid.show(res.message, ToastAndroid.SHORT);
             }
 
+            this.Token.set(res.token);
             this.props.navigation.dispatch(navigateAction);
         })
 
@@ -34,8 +34,6 @@ export default class Login extends Component {
     render() {
 
         let frmObj = {};
-
-        console.log(this.appLogo);
 
         return (
 
@@ -69,7 +67,7 @@ export default class Login extends Component {
                 />
                 <TouchableHighlight
                     style={styles.loginBtn}
-                    onPress={ () => /*this.doLogin(frmObj)*/ this.props.navigation.dispatch(navigateAction) }
+                    onPress={ () => this.doLogin(frmObj) }
                 >
                     <Text style={styles.loginBtnTxt}>
                         Login
