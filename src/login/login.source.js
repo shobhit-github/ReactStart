@@ -20,6 +20,7 @@ export default class Login extends Component {
 
         this.Auth.doLogin(data, (res) => {
 
+
             if (!res.success) {
                 return ToastAndroid.show(res.message, ToastAndroid.SHORT);
             }

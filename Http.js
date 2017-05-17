@@ -1,4 +1,5 @@
 import {Config} from './Config';
+import {AsyncStorage} from 'react-native';
 import Token from './Token';
 
 export default class Http {
@@ -10,9 +11,10 @@ export default class Http {
         'Content-Type': 'application/json',
     };
 
-    auth() {
 
-        this.Token.get().then((_token)=>this.headers.Authorization = _token);
+    async auth() {
+
+        this.headers.Authorization  = await AsyncStorage.getItem('_TOKEN_');
 
         return fetch(
             this.API_URL+'check_auth',
@@ -23,6 +25,7 @@ export default class Http {
         )
             .then( (rawData) => { return rawData.json() } )
     }
+
 
     get(url, params) {
 
@@ -35,6 +38,7 @@ export default class Http {
         )
             .then( (rawData) => { return rawData.json() } )
     }
+
 
     post(url, data) {
 

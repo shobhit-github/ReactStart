@@ -12,21 +12,22 @@ import {Home} from './dashboard.network';
 export default class Dashboard extends Component {
 
 
-    user = new Object();
     home = new Home();
-
 
     constructor(props) {
         super(props);
+        this.state = {user: new Object()};
 
         this.home.checkAuth((res)=>{
 
-            this.user = res;
+            this.setState({ user: res.response});
         })
     }
 
 
     render() {
+
+        console.log(this.state.user.picture);
 
         let navigationView = (
             <ScrollView
@@ -37,18 +38,18 @@ export default class Dashboard extends Component {
                 <View
                     style={styles.drawerProfile}>
                     <Image
-                        source={require('../../public/img/user.png')}
+                        source={(!this.state.user.picture ? require('../../public/img/user.png') : {uri:this.state.user.picture}) }
                         style={styles.userImage}
                     />
                     <Text
                         style={styles.username}
                     >
-                        Shohbit Sharma
+                        {this.state.user.firstname} {this.state.user.lastname}
                     </Text>
                     <Text
                         style={styles.email}
                     >
-                        shobhitsharma@gmail.com
+                        {this.state.user.email}
                     </Text>
                 </View>
 
