@@ -27,8 +27,6 @@ export default class Dashboard extends Component {
 
     render() {
 
-        console.log(this.state.user.picture);
-
         let navigationView = (
             <ScrollView
                 backgroundColor="#2A3F54"
